@@ -6,10 +6,10 @@ dotenv.config();
 
 // Create a new pool instance to connect to the database
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false, // Ensure SSL works for cloud-hosted databases like Supabase
-    },
+    connectionString: process.env.DATABASE_URL, // Use DATABASE_URL for the connection string
+    max: 15, // Match Supabase's default pool size for Nano
+    idleTimeoutMillis: 30000, // Time before an idle connection is closed (30 seconds)
+    connectionTimeoutMillis: 2000, // Timeout for new connections (2 seconds)
 });
 
 // Test the database connection
