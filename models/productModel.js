@@ -61,10 +61,21 @@ const deleteProduct = async (productId) => {
     }
 };
 
+const getProductNames = async () => {
+    try {
+        console.log("reached model")
+        const result = await pool.query('SELECT product_name FROM product');
+        return result.rows;
+    } catch (error) {
+        throw new Error('Error fetching product names: ' + error.message);
+    }
+};
+
 module.exports = {
     getAllProducts,
     getProductById,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getProductNames
 };
