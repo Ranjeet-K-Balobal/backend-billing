@@ -30,7 +30,8 @@ const createProduct = async (req, res) => {
     const productData = req.body;
     try {
         const newProduct = await productModel.createProduct(productData);
-        res.status(201).json(newProduct);  // Return the newly created product
+        res.status(201).json(newProduct);  
+        console.log("products inserted")// Return the newly created product
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -67,10 +68,21 @@ const deleteProduct = async (req, res) => {
     }
 };
 
+const getProductNames = async (req, res) => {
+    try {
+        console.log("controlller")
+        const productNames = await productModel.getProductNames();
+        res.status(200).json(productNames);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
     getAllProducts,
     getProductById,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getProductNames
 };
